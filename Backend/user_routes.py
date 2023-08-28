@@ -1,21 +1,20 @@
-from flask import Blueprint, request, jsonify
-from models import user_model, db
 import bcrypt
+from flask import Blueprint, request
+from models import user_model, db
 
 user_blueprint = Blueprint('user_blueprint', __name__)
-salt = bcrypt.gensalt()
-
 
 @user_blueprint.route('/users/register', methods=['POST'])
 def handle_register():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
+            salt = bcrypt.gensalt()
             hashedpw = bcrypt.hashpw(data['password'].encode('utf-8'), salt)
-            newUser = user_model(email=data['email'], hasVoted=data["hasVoted"], password=hashedpw)
-            db.session.add(newUser)
+            new_user = user_model(email=data['email'], hasVoted=data["hasVoted"], password=hashedpw)
+            db.session.add(new_user)
             db.session.commit()
-            return {"message": f"user {newUser.email} has been created successfully."}
+            return {"message": f"user {new_user.email} has been created successfully."}
         else:
             return {"error": "The request payload is not in JSON format"}
 
@@ -24,11 +23,13 @@ def handle_users():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
-            hashedpw = bcrypt.hashpw(data['password'].encode('utf-8'), salt)
-            newUser = user_model(email=data['email'], hasVoted=data["hasVoted"], password=hashedpw)
-            db.session.add(newUser)
-            db.session.commit()
-            return {"message": f"user {newUser.email} has been created successfully."}
+            user = db.session.query(user_model).filter_by(email=data["email"]).first()
+            if user:
+                if bcrypt.checkpw(data['password'].encode("utf-8"), user.password):
+                    return {"message": "Logged in!"}
+                else:
+                    return {"message": "Wrong password"}, 422
+            else:
+                return {"message": "no user with that email:("}, 422
         else:
             return {"error": "The request payload is not in JSON format"}
-

@@ -7,7 +7,7 @@ class user_model(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String())
     hasVoted = db.Column(db.Boolean())
-    password = db.Column(db.String())
+    password = db.Column(db.LargeBinary())
 
     def __init__(self, email, hasVoted, password):
         self.email = email
