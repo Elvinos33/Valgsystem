@@ -25,15 +25,18 @@ def handle_vote():
             voter = db.session.query(user_model).filter_by(email=data["voter"]).first()
 
             if voter:
-                voter.hasVoted = True
-                candidate = db.session.query(candidate_model).filter_by(name=data["candidate"]).first()
-
-                if candidate:
-                    candidate.votes += 1
-                    db.session.commit()
-                    return {"message": "Successfully voted."}
+                if voter.hasVoted:
+                    return {"message": "This user has already voted."}, 422
                 else:
-                    return {"message": "Candidate not found."}, 404
+                    voter.hasVoted = True
+                    candidate = db.session.query(candidate_model).filter_by(name=data["candidate"]).first()
+
+                    if candidate:
+                        candidate.votes += 1
+                        db.session.commit()
+                        return {"message": "Successfully voted."}
+                    else:
+                        return {"message": "Candidate not found."}, 404
         else:
             return {"error": "The request payload is not in JSON format"}, 400
 
