@@ -10,5 +10,8 @@ migrate = Migrate(app, db)
 from user_routes import user_blueprint
 app.register_blueprint(user_blueprint)
 
+from voting_routes import voting_blueprint
+app.register_blueprint(voting_blueprint)
+
 if __name__ == '__main__':
     app.run(debug=True)
