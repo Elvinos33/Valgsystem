@@ -7,7 +7,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://elvinos:ImpalaTame2023.@lo
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from routes import user_blueprint
+from user_routes import user_blueprint
 app.register_blueprint(user_blueprint)
 
 if __name__ == '__main__':
