@@ -12,7 +12,7 @@ export default function Home() {
 
     const [showLogin, setShowLogin] = useState(false);
     const [showCreateAccount, setShowCreateAccount] = useState(false);
-    const [user, setUser] = useState('')
+    const [user, setUser] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
 
     const router = useRouter()
@@ -28,7 +28,7 @@ export default function Home() {
                 if (data.valid) {
                     // Token is valid, you can update your state or take other actions
                     console.log('Token is valid');
-                    setUser(data.email)
+                    setUser(data)
                     setLoggedIn(true)
                 } else {
                     // Token is not valid
@@ -41,14 +41,18 @@ export default function Home() {
             });
     }, []);
 
+    useEffect(() => {
+        console.log(user)
+    }, [user]);
+
   return (
     <main className="absolute inset-0 bg-celestialBlue">
         <header className="w-screen">
-            <Header setShowLogin={setShowLogin} loggedIn={loggedIn} setShowCreateAccount={setShowCreateAccount}/>
+            <Header setShowLogin={setShowLogin} loggedIn={loggedIn} setShowCreateAccount={setShowCreateAccount} user={user}/>
         </header>
         { showLogin &&
             <>
-                <Login setShowLogin={setShowLogin} setShowCreateAccount={setShowCreateAccount}/>
+                <Login setLoggedIn={setLoggedIn} setShowLogin={setShowLogin} setShowCreateAccount={setShowCreateAccount}/>
             </>
         }
         { showCreateAccount &&

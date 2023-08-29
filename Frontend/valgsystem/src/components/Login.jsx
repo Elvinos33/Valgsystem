@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import makeRequest from "@/functions/makeRequest";
 import {useState, useEffect} from "react";
 
-export default function Login({setShowLogin, setShowCreateAccount}) {
+export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn}) {
 
 
     const {register, handleSubmit, reset} = useForm();
@@ -15,7 +15,9 @@ export default function Login({setShowLogin, setShowCreateAccount}) {
             const response = await makeRequest("users/login", "POST", data);
             const responseData = await response.json();
 
+            setLoggedIn(responseData.success)
             setToken(responseData.token);
+            setShowLogin(false)
         } catch (error) {
             console.error('Error fetching token: ', error);
         }

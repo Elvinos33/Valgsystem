@@ -41,7 +41,8 @@ def handle_login():
             if user:
                 if bcrypt.checkpw(data['password'].encode("utf-8"), user.password):
                     token = jwt.encode({'user_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=45)}, app.config['SECRET_KEY'], "HS256")
-                    return jsonify({'token': token})
+                    return jsonify({'token': token,
+                                    "success": True})
 
                 else:
                     return {"message": "Wrong password"}, 422
@@ -64,7 +65,8 @@ def handle_validation():
                     user_id = decoded_token.get('user_id')
                     user = db.session.query(user_model).filter_by(id=user_id).first()
                     return jsonify({'valid': True,
-                                    "email": user.email})
+                                    "email": user.email,
+                                    "id": user.id})
                 except jwt.ExpiredSignatureError:
                     # Token has expired
                     return jsonify({'valid': False, 'error': 'Token has expired'})

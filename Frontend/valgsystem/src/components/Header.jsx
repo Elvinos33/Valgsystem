@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Header({setShowLogin, setShowCreateAccount, loggedIn}) {
+export default function Header({setShowLogin, setShowCreateAccount, loggedIn, user}) {
 
     function handleRegisterClick() {
         setShowCreateAccount(true);
@@ -24,6 +24,12 @@ export default function Header({setShowLogin, setShowCreateAccount, loggedIn}) {
                         <button onClick={handleRegisterClick} className="font-extrabold text-gray-700 transition border-celestialBlue hover:border-b-[3px] hover:text-black">Registrer</button>
                     </div>
                 }
+                {loggedIn &&
+                    <div className="flex gap-4">
+                        <p>Hei, {user.email}</p>
+                    </div>
+                }
+
             </div>
         </>
     )
