@@ -1,6 +1,18 @@
 "use client";
 
+import {useForm} from "react-hook-form";
+import makeRequest from "@/functions/makeRequest";
+
 export default function Login({setShowLogin, setShowCreateAccount}) {
+
+
+    const {register, handleSubmit, reset} = useForm();
+
+    function onSubmit(data) {
+        makeRequest("users/login", "POST", data)
+        reset()
+
+    }
 
     function handleOutsideClick() {
         setShowLogin(false)
@@ -10,13 +22,15 @@ export default function Login({setShowLogin, setShowCreateAccount}) {
         setShowLogin(false)
     }
 
+
+
     return (
         <div className="flex items-center justify-center">
             <div className=" bg-white rounded-md z-10">
-                <form className={"flex flex-col gap-2 p-4"}>
+                <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 p-4"}>
                     <p className="text-center font-bold my-4 text-[20px]">Logg Inn</p>
-                    <input type="text" placeholder={"E-post"} className="rounded-md h-10 p-2 bg-gray-100"/>
-                    <input type="text" placeholder={"Passord"} className="rounded-md h-10 p-2 bg-gray-100"/>
+                    <input type="email" placeholder={"E-post"} {...register("email", {required: true})} className="rounded-md h-10 p-2 bg-gray-100"/>
+                    <input type="password" placeholder={"Passord"} {...register("password", {required: true})} className="rounded-md h-10 p-2 bg-gray-100"/>
                     <button className={"p-4 bg-slate-200 mt-4 rounded-md transition hover:bg-black hover:text-white"}>
                         Logg Inn
                     </button>

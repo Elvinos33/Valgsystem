@@ -10,14 +10,19 @@ def handle_register():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
-            salt = bcrypt.gensalt()
+            user = db.session.query(user_model).filter_by(email=data["email"]).first()
+            if not user:
+                salt = bcrypt.gensalt()
 
-            hashedpw = bcrypt.hashpw(data['password'].encode('utf-8'), salt)
-            new_user = user_model(email=data['email'], hasVoted=data["hasVoted"], password=hashedpw)
+                hashedpw = bcrypt.hashpw(data['password'].encode('utf-8'), salt)
+                new_user = user_model(email=data['email'], hasVoted=False, password=hashedpw)
 
-            db.session.add(new_user)
-            db.session.commit()
-            return {"message": f"user {new_user.email} has been created successfully."}
+                db.session.add(new_user)
+                db.session.commit()
+                return {"message": f"user {new_user.email} has been created successfully."}
+            else:
+                return {"message": "User with this email already exists."}, 422
+
         else:
             return {"error": "The request payload is not in JSON format"}
 

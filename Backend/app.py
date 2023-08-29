@@ -1,11 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://elvinos:ImpalaTame2023.@localhost:5432/valgsystem"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+CORS(app)
 
 from user_routes import user_blueprint
 app.register_blueprint(user_blueprint)
