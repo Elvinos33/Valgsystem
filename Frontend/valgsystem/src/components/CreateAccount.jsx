@@ -29,8 +29,8 @@ export default function CreateAccount({setShowCreateAccount, setShowLogin}) {
     }
 
     return (
-        <div className="flex items-center justify-center">
-            <div className=" bg-white rounded-md z-10">
+        <div className="flex items-start justify-center">
+            <div className="absolute bg-white rounded-md z-10">
                 <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 p-4"}>
                     <p className="text-center font-bold my-4 text-[20px]">Lag en bruker</p>
                     <input type="email" placeholder={"E-post"} {...register("email", {required: true})} className="rounded-md h-10 p-2 bg-gray-100"/>

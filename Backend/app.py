@@ -8,7 +8,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://elvinos:ImpalaTame2023.@localhost:5432/valgsystem"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-CORS(app)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = os.urandom(24)
 
 from user_routes import user_blueprint

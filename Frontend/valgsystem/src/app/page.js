@@ -60,7 +60,7 @@ export default function Home() {
                 <CreateAccount setShowCreateAccount={setShowCreateAccount} setShowLogin={setShowLogin}/>
             </>
         }
-      <div className="h-max w-screen">
+      <div className="h-max w-screen z-0">
             <div className="flex">
                 <p className="text-white font-extrabold text-[2rem] w-full text-center">PÅGÅENDE VALG</p>
             </div>
