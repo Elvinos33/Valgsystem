@@ -61,7 +61,9 @@ export default function Home() {
             </>
         }
       <div className="h-max w-screen">
-
+            <div className="flex">
+                <p className="text-white font-extrabold text-[2rem] w-full text-center">PÅGÅENDE VALG</p>
+            </div>
       </div>
     </main>
   )
