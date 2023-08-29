@@ -40,9 +40,14 @@ def handle_login():
 
             if user:
                 if bcrypt.checkpw(data['password'].encode("utf-8"), user.password):
-                    token = jwt.encode({'user_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=45)}, app.config['SECRET_KEY'], "HS256")
+                    token = jwt.encode(
+                        {'user_id': str(user.id), 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=45)},
+                        app.config['SECRET_KEY'], "HS256")
                     return jsonify({'token': token,
-                                    "success": True})
+                                    "success": True,
+                                    "user": {"email": user.email,
+                                             "id": user.id}
+                                    })
 
                 else:
                     return {"message": "Wrong password"}, 422
@@ -96,4 +101,3 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
 
     return decorator
-

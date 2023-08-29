@@ -52,7 +52,7 @@ export default function Home() {
         </header>
         { showLogin &&
             <>
-                <Login setLoggedIn={setLoggedIn} setShowLogin={setShowLogin} setShowCreateAccount={setShowCreateAccount}/>
+                <Login setUser={setUser} setLoggedIn={setLoggedIn} setShowLogin={setShowLogin} setShowCreateAccount={setShowCreateAccount}/>
             </>
         }
         { showCreateAccount &&

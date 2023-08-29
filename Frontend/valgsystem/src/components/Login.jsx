@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import makeRequest from "@/functions/makeRequest";
 import {useState, useEffect} from "react";
 
-export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn}) {
+export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn, setUser}) {
 
 
     const {register, handleSubmit, reset} = useForm();
@@ -17,7 +17,7 @@ export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn})
 
             setLoggedIn(responseData.success)
             setToken(responseData.token);
-            setShowLogin(false)
+            setUser(responseData.user)
         } catch (error) {
             console.error('Error fetching token: ', error);
         }
@@ -29,7 +29,9 @@ export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn})
             localStorage.setItem('jwtToken', token);
             console.log(token);
             reset(); // Reset after using the updated token
+            setShowLogin(false)
         }
+
     }, [token]); // Run this effect whenever token changes
 
 
