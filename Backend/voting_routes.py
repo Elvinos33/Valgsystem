@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from models import candidate_model, user_model, db
+from user_routes import token_required
 
 voting_blueprint = Blueprint('voting_blueprint', __name__)
 
@@ -17,6 +18,7 @@ def handle_results():
 
 
 @voting_blueprint.route('/voting/vote', methods=['POST'])
+@token_required
 def handle_vote():
     if request.method == 'POST':
         if request.is_json:
@@ -39,4 +41,7 @@ def handle_vote():
                         return {"message": "Candidate not found."}, 404
         else:
             return {"error": "The request payload is not in JSON format"}, 400
+
+
+
 

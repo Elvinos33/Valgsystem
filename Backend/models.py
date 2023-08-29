@@ -1,6 +1,5 @@
 from app import db
 
-
 class user_model(db.Model):
     __tablename__ = 'Users'
 
@@ -16,6 +15,8 @@ class user_model(db.Model):
 
     def __repr__(self):
         return f"<User {self.email}>"
+
+
 
 
 class candidate_model(db.Model):

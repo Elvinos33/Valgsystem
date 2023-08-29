@@ -2,17 +2,34 @@
 
 import {useForm} from "react-hook-form";
 import makeRequest from "@/functions/makeRequest";
+import {useState, useEffect} from "react";
 
 export default function Login({setShowLogin, setShowCreateAccount}) {
 
 
     const {register, handleSubmit, reset} = useForm();
+    const [token, setToken] = useState('')
 
-    function onSubmit(data) {
-        makeRequest("users/login", "POST", data)
-        reset()
+    async function onSubmit(data) {
+        try {
+            const response = await makeRequest("users/login", "POST", data);
+            const responseData = await response.json();
 
+            setToken(responseData.token);
+        } catch (error) {
+            console.error('Error fetching token: ', error);
+        }
     }
+
+    useEffect(() => {
+        if (token) {
+            // Token has been updated, you can use it now
+            localStorage.setItem('jwtToken', token);
+            console.log(token);
+            reset(); // Reset after using the updated token
+        }
+    }, [token]); // Run this effect whenever token changes
+
 
     function handleOutsideClick() {
         setShowLogin(false)

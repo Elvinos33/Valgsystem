@@ -11,6 +11,8 @@ export default function CreateAccount({setShowCreateAccount, setShowLogin}) {
         if (data.password === data.confirmPassword) {
             makeRequest("users/register", "POST", data)
             reset()
+            setShowCreateAccount(false)
+            setShowLogin(true)
         } else {
             alert("Passwords do not match!")
         }
