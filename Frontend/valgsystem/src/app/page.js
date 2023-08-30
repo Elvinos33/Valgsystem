@@ -6,7 +6,7 @@ import {useState, useEffect} from "react";
 import Login from "@/components/Login";
 import CreateAccount from "@/components/CreateAccount";
 import makeRequest from "@/functions/makeRequest";
-import {useRouter} from 'next/navigation'
+import VoteBox from "@/components/VoteBox";
 
 export default function Home() {
 
@@ -14,8 +14,9 @@ export default function Home() {
     const [showCreateAccount, setShowCreateAccount] = useState(false);
     const [user, setUser] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
+    const [voteData, setVoteData] = useState([])
+    const [groups, setGroups] = useState([])
 
-    const router = useRouter()
 
     useEffect(() => {
         const storedJwtToken = localStorage.getItem('jwtToken');
@@ -45,8 +46,25 @@ export default function Home() {
         console.log(user)
     }, [user]);
 
+    useEffect(() => {
+        makeRequest('voting/results', 'GET')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.candidates)
+                setVoteData(data.candidates)
+
+                const groups = Array.from(new Set(data.candidates.map(item => item.group)));
+                setGroups(groups)
+            })
+    }, []);
+
+    useEffect(() => {
+        console.log(groups)
+        console.log(voteData)
+    }, [groups]);
+
   return (
-    <main className="absolute inset-0 bg-celestialBlue">
+    <main className="absolute inset-0 bg-celestialBlue overflow-hidden">
         <header className="w-screen">
             <Header setShowLogin={setShowLogin} loggedIn={loggedIn} setShowCreateAccount={setShowCreateAccount} user={user}/>
         </header>
@@ -60,9 +78,22 @@ export default function Home() {
                 <CreateAccount setShowCreateAccount={setShowCreateAccount} setShowLogin={setShowLogin}/>
             </>
         }
-      <div className="h-max w-screen z-0">
-            <div className="flex">
+      <div className="h-max w-screen flex flex-col z-0">
+            <div className="flex mb-5">
                 <p className="text-white font-extrabold text-[2rem] w-full text-center">PÅGÅENDE VALG</p>
+            </div>
+            <div className="flex justify-center overflow-y-scroll">
+                <div className="max-h-screen grid gap-5 md:grid-cols-2 lg:grid-cols-4 p-5 mb-80">
+                    {groups.map((group, index) => {
+                        const candidatesForGroup = voteData.filter(candidate => candidate.group === group);
+
+                        return (
+                            <VoteBox key={index} group={group} candidata={candidatesForGroup} />
+                        );
+                })}
+
+                </div>
+
             </div>
       </div>
     </main>

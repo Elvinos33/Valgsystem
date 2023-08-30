@@ -11,10 +11,11 @@ def handle_results():
         results = [
             {
                 "name": candidate.name,
-                "vote": candidate.votes
+                "vote": candidate.votes,
+                "group": candidate.group
             } for candidate in candidates]
 
-        return {"Results": results}
+        return {"candidates": results}
 
 
 @voting_blueprint.route('/voting/vote', methods=['POST'])
