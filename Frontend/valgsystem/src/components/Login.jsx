@@ -52,7 +52,7 @@ export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn, 
                     <p className="text-center font-bold my-4 text-[20px]">Logg Inn</p>
                     <input type="email" placeholder={"E-post"} {...register("email", {required: true})} className="rounded-md h-10 p-2 bg-gray-100"/>
                     <input type="password" placeholder={"Passord"} {...register("password", {required: true})} className="rounded-md h-10 p-2 bg-gray-100"/>
-                    <button className={"p-4 bg-slate-200 mt-4 rounded-md transition hover:bg-black hover:text-white"}>
+                    <button className={"p-4 bg-slate-200 mt-4 rounded-md transition hover:bg-slate-600 hover:text-white"}>
                         Logg Inn
                     </button>
                 </form>
@@ -61,7 +61,7 @@ export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn, 
                     <button onClick={handleRegisterClick} className={"font-bold hover:underline"}>Lag bruker</button>
                 </div>
             </div>
-            <div onClick={handleOutsideClick} className="absolute inset-0 bg bg-gray-500 opacity-50 z-0"></div>
+            <div onClick={handleOutsideClick} className="absolute inset-0 bg bg-gray-500 opacity-50 z-40"></div>
         </div>
     )
 }

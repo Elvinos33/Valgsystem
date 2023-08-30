@@ -12,6 +12,8 @@ const BarChart = ({vote1, vote2, can1, can2}) => {
             {
                 backgroundColor: "rgb(77,77,255)",
                 data: [vote1, vote2, total],
+                borderRadius: 5
+
             },
         ],
 

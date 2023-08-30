@@ -19,7 +19,6 @@ def handle_results():
 
 
 @voting_blueprint.route('/voting/vote', methods=['POST'])
-@token_required
 def handle_vote():
     if request.method == 'POST':
         if request.is_json:
