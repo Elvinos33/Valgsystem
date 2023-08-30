@@ -1,3 +1,5 @@
+"use client";
+
 import VoteBox from "@/components/VoteBox";
 
 export default function Page() {
