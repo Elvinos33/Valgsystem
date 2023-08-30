@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import makeRequest from "@/functions/makeRequest";
 import {useState, useEffect} from "react";
 
-export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn, setUser}) {
+export default function Login({setShowLogin, setShowCreateAccount, setLoggedIn, setUser, user}) {
 
 
     const {register, handleSubmit, reset} = useForm();

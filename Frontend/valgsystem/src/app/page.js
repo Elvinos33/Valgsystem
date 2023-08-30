@@ -80,7 +80,7 @@ export default function Home() {
         }
         { showOverlay &&
             <>
-                <VotingOverlay group={selectedGroup} candidata={candidatesForSelectedGroup} setShowLogin={setShowLogin} loggedIn={loggedIn} setShowOverlay={setShowOverlay}/>
+                <VotingOverlay user={user} group={selectedGroup} candidata={candidatesForSelectedGroup} setShowLogin={setShowLogin} loggedIn={loggedIn} setShowOverlay={setShowOverlay}/>
             </>
         }
       <div className="h-max w-screen flex flex-col z-0">

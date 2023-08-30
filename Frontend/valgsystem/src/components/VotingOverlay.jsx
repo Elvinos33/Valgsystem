@@ -1,8 +1,9 @@
 "use client";
 import {useState, useEffect} from "react";
 import BarChart from "@/components/BarGraph";
+import makeRequest from "@/functions/makeRequest";
 
-export default function VotingOverlay({setShowLogin, loggedIn, setShowOverlay, group, candidata}) {
+export default function VotingOverlay({setShowLogin, loggedIn, setShowOverlay, group, candidata, user}) {
 
     function handleOutsideClick() {
         setShowOverlay(false)
@@ -11,8 +12,15 @@ export default function VotingOverlay({setShowLogin, loggedIn, setShowOverlay, g
         setShowLogin(true)
     }
 
-    function handleVoteClick() {
+    async function handleVoteClick(data) {
+        const response = await makeRequest('voting/vote', "POST", data)
+        const responseData = await response.json()
 
+        if (responseData.success === true) {
+            alert("Du har stemt!")
+        } else {
+            alert("Uventet feil har oppstått. Prøv igjen")
+        }
     }
 
 
@@ -36,11 +44,11 @@ export default function VotingOverlay({setShowLogin, loggedIn, setShowOverlay, g
                                 <div className="flex flex-col gap-20 w-full p-5">
                                     <div className={"flex justify-between items-center"}>
                                         <p className="text-[1.5rem] font-bold">{candidata[0].name}</p>
-                                        <button className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
+                                        <button onClick={() => handleVoteClick({"voter": user.id, "candidate": candidata[0].name})} className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
                                     </div>
                                     <div className={"flex gap-10 justify-between items-center"}>
                                         <p className="text-[1.5rem] font-bold">{candidata[1].name}</p>
-                                        <button className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
+                                        <button onClick={() => handleVoteClick({"voter": user.id, "candidate": candidata[1].name})} className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
                                     </div>
                                 </div>
                             </>

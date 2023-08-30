@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from models import candidate_model, user_model, db
 from user_routes import token_required
 
@@ -24,7 +24,7 @@ def handle_vote():
         if request.is_json:
             data = request.get_json()
 
-            voter = db.session.query(user_model).filter_by(email=data["voter"]).first()
+            voter = db.session.query(user_model).filter_by(id=data["voter"]).first()
 
             if voter:
                 if voter.hasVoted:
@@ -36,7 +36,7 @@ def handle_vote():
                     if candidate:
                         candidate.votes += 1
                         db.session.commit()
-                        return {"message": "Successfully voted."}
+                        return jsonify({"success": True})
                     else:
                         return {"message": "Candidate not found."}, 404
         else:
