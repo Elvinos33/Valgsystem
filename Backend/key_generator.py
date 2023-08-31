@@ -15,7 +15,8 @@ def generator():
         new_key = key_model(id=key, group=group)
 
         db.session.add(new_key)
-        db.session.commit()
+
+    db.session.commit()
 
     return {"message": "success"}
 
