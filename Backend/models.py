@@ -24,7 +24,6 @@ class candidate_model(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
-    group = db.Column(db.String())
     votes = db.Column(db.Integer())
 
     def __init__(self, name, votes):
@@ -33,3 +32,18 @@ class candidate_model(db.Model):
 
     def __repr__(self):
         return f"<User {self.email}>"
+
+class group_model(db.Model):
+    __tablename__ = 'Groups'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    voters = db.Column(db.ARRAY(db.Integer))
+
+    def __init__(self, name, votes):
+        self.name = name
+        self.votes = votes
+
+    def __repr__(self):
+        return f"<User {self.email}>"
+

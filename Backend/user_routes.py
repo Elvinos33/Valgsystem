@@ -5,11 +5,13 @@ from flask import Blueprint, request, jsonify
 from models import user_model, db
 from app import app
 from functools import wraps
+from flask_cors import cross_origin
 
 user_blueprint = Blueprint('user_blueprint', __name__)
 
 
 @user_blueprint.route('/users/register', methods=['POST'])
+@cross_origin()
 def handle_register():
     if request.method == 'POST':
         if request.is_json:
@@ -32,6 +34,7 @@ def handle_register():
 
 
 @user_blueprint.route('/users/login', methods=['POST'])
+@cross_origin()
 def handle_login():
     if request.method == 'POST':
         if request.is_json:
@@ -58,6 +61,7 @@ def handle_login():
 
 
 @user_blueprint.route('/users/validate', methods=['POST'])
+@cross_origin()
 def handle_validation():
     if request.method == 'POST':
         if request.is_json:

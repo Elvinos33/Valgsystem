@@ -1,10 +1,12 @@
 from flask import Blueprint, request, jsonify
 from models import candidate_model, user_model, db
 from user_routes import token_required
+from flask_cors import cross_origin
 
 voting_blueprint = Blueprint('voting_blueprint', __name__)
 
 @voting_blueprint.route('/voting/results', methods=['GET'])
+@cross_origin()
 def handle_results():
     if request.method == 'GET':
         candidates = candidate_model.query.all()
@@ -12,13 +14,14 @@ def handle_results():
             {
                 "name": candidate.name,
                 "vote": candidate.votes,
-                "group": candidate.group
+                "group": "2IMIT"
             } for candidate in candidates]
 
         return {"candidates": results}
 
 
 @voting_blueprint.route('/voting/vote', methods=['POST'])
+@cross_origin()
 def handle_vote():
     if request.method == 'POST':
         if request.is_json:
