@@ -11,8 +11,6 @@ import VotingOverlay from "@/components/VotingOverlay";
 
 export default function Home() {
 
-    const [showLogin, setShowLogin] = useState(false);
-    const [showCreateAccount, setShowCreateAccount] = useState(false);
     const [user, setUser] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
     const [voteData, setVoteData] = useState([])
@@ -66,21 +64,11 @@ export default function Home() {
   return (
     <main className="absolute inset-0 bg-celestialBlue overflow-hidden -z-50">
         <header className="w-screen">
-            <Header setShowLogin={setShowLogin} loggedIn={loggedIn} setShowCreateAccount={setShowCreateAccount} user={user}/>
+            <Header/>
         </header>
-        { showLogin &&
-            <>
-                <Login setUser={setUser} setLoggedIn={setLoggedIn} setShowLogin={setShowLogin} setShowCreateAccount={setShowCreateAccount}/>
-            </>
-        }
-        { showCreateAccount &&
-            <>
-                <CreateAccount setShowCreateAccount={setShowCreateAccount} setShowLogin={setShowLogin}/>
-            </>
-        }
         { showOverlay &&
             <>
-                <VotingOverlay user={user} group={selectedGroup} candidata={candidatesForSelectedGroup} setShowLogin={setShowLogin} loggedIn={loggedIn} setShowOverlay={setShowOverlay}/>
+                <VotingOverlay group={selectedGroup} candidata={candidatesForSelectedGroup} setShowOverlay={setShowOverlay}/>
             </>
         }
       <div className="h-max w-screen flex flex-col z-0">

@@ -10,14 +10,15 @@ voting_blueprint = Blueprint('voting_blueprint', __name__)
 def handle_results():
     if request.method == 'GET':
         candidates = candidate_model.query.all()
-        results = [
+
+        candidata = [
             {
                 "name": candidate.name,
                 "vote": candidate.votes,
-                "group": "2IMIT"
+                "group": candidate.group
             } for candidate in candidates]
 
-        return {"candidates": results}
+        return {"candidates": candidata}
 
 
 @voting_blueprint.route('/voting/vote', methods=['POST'])

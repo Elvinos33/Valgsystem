@@ -39,24 +39,16 @@ export default function VotingOverlay({setShowLogin, loggedIn, setShowOverlay, g
                         </div>
                         <div className="flex-1 flex items-center justify-center">
 
-                            {loggedIn ?(
-                            <>
-                                <div className="flex flex-col gap-20 w-full p-5">
-                                    <div className={"flex justify-between items-center"}>
-                                        <p className="text-[1.5rem] font-bold">{candidata[0].name}</p>
-                                        <button onClick={() => handleVoteClick({"voter": user.id, "candidate": candidata[0].name})} className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
-                                    </div>
-                                    <div className={"flex gap-10 justify-between items-center"}>
-                                        <p className="text-[1.5rem] font-bold">{candidata[1].name}</p>
-                                        <button onClick={() => handleVoteClick({"voter": user.id, "candidate": candidata[1].name})} className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
-                                    </div>
+                            <div className="flex flex-col gap-20 w-full p-5">
+                                <div className={"flex justify-between items-center"}>
+                                    <p className="text-[1.5rem] font-bold">{candidata[0].name}</p>
+                                    <button onClick={() => handleVoteClick({"voterKey": user.id, "candidate": candidata[0].name})} className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
                                 </div>
-                            </>
-                            ) : (
-                            <>
-                                <button onClick={handleLoginClick} className="bg-slate-300 text-gray-700 p-5 rounded-md font-bold transition hover:bg-slate-600 hover:text-white">Logg Inn For å Stemme</button>
-                            </>
-                            )}
+                                <div className={"flex gap-10 justify-between items-center"}>
+                                    <p className="text-[1.5rem] font-bold">{candidata[1].name}</p>
+                                    <button onClick={() => handleVoteClick({"voterKey": user.id, "candidate": candidata[1].name})} className={"py-3 px-5 bg-slate-300 rounded-md text-gray-700 transition hover:bg-slate-600 hover:text-white"}>STEM</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

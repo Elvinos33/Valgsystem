@@ -1,13 +1,6 @@
 import Image from "next/image";
 
-export default function Header({setShowLogin, setShowCreateAccount, loggedIn, user}) {
-
-    function handleRegisterClick() {
-        setShowCreateAccount(true);
-    }
-    function handleLoginClick() {
-        setShowLogin(true);
-    }
+export default function Header() {
 
     return (
         <>
@@ -16,19 +9,6 @@ export default function Header({setShowLogin, setShowCreateAccount, loggedIn, us
                     <Image src={"https://elvebakken.vgs.no/siteassets/logoer/logo222.png"} alt={"Elvebakken Logo"} width={50} height={50}/>
                     <p className={"font-extrabold text-[1.5rem] text-gray-700 hidden md:block"}>VALG</p>
                 </div>
-                {!loggedIn &&
-                    <div className="flex gap-4">
-                        <button onClick={handleLoginClick} className="font-extrabold text-gray-700 transition border-celestialBlue hover:border-b-[3px] hover:text-black">Logg Inn</button>
-                        <div className="w-[4px] bg-prussianBlue rounded-md">
-                        </div>
-                        <button onClick={handleRegisterClick} className="font-extrabold text-gray-700 transition border-celestialBlue hover:border-b-[3px] hover:text-black">Registrer</button>
-                    </div>
-                }
-                {loggedIn &&
-                    <div className="flex gap-4">
-                        <p>Hei, {user.email}</p>
-                    </div>
-                }
 
             </div>
         </>
