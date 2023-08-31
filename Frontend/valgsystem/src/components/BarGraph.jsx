@@ -42,10 +42,10 @@ const BarChart = ({vote1, vote2, can1, can2}) => {
         }
     };
     return (
-        <div className={"py-5 h-full"}>
+        <div className={"py-5 h-full flex flex-col justify-end"}>
             {!total ? (
                 <div className={"h-full flex items-center justify-center"}>
-                    <p className={"font-light"}>Ingen data ennå</p>
+                    <p className={"font-light"}>Ingen stemmer ennå</p>
                 </div>
             ) : (
                 <Bar data={data} options={options} />
