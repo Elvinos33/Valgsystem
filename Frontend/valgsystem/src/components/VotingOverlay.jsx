@@ -35,7 +35,7 @@ export default function VotingOverlay({setShowLogin, loggedIn, setShowOverlay, g
                     <div className="flex h-full">
                         <div className="flex-1 h-full border-r">
                             <p className="text-center font-bold text-[20px]">RESULTATER</p>
-                            <BarChart can1={"hello"} can2={"hello"} vote1={candidata[0].vote} vote2={candidata[1].vote}/>
+                            <BarChart can1={candidata[0].name} can2={candidata[1].name} vote1={candidata[0].vote} vote2={candidata[1].vote}/>
                         </div>
                         <div className="flex-1 flex items-center justify-center">
 
