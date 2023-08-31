@@ -3,7 +3,7 @@ import BarChart from "@/components/BarGraph";
 export default function VoteBox({group, candidata, onClick }) {
 
     return (
-        <button onClick={onClick} className="bg-white w-[20rem] h-[14rem] rounded-md transition hover:scale-105 overflow-hidden z-0">
+        <button onClick={onClick} className="bg-white w-[20rem] h-[15rem] rounded-md transition hover:scale-105 overflow-hidden z-0">
             <div className="w-full h-full p-3 flex flex-col">
                 <div className="flex-col flex">
                     <p className={"text-start font-extrabold opacity-70 text-[14px]"}>Tillitsvalgt</p>

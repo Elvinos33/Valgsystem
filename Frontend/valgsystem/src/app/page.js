@@ -1,18 +1,12 @@
 "use client";
-
-import Image from 'next/image'
 import Header from "@/components/Header";
 import {useState, useEffect} from "react";
-import Login from "@/components/Login";
-import CreateAccount from "@/components/CreateAccount";
 import makeRequest from "@/functions/makeRequest";
 import VoteBox from "@/components/VoteBox";
 import VotingOverlay from "@/components/VotingOverlay";
 
 export default function Home() {
 
-    const [user, setUser] = useState([])
-    const [loggedIn, setLoggedIn] = useState(false)
     const [voteData, setVoteData] = useState([])
     const [groups, setGroups] = useState([])
     const [showOverlay, setShowOverlay] = useState(false)
@@ -21,39 +15,18 @@ export default function Home() {
 
 
     useEffect(() => {
-        const storedJwtToken = localStorage.getItem('jwtToken');
-        console.log(storedJwtToken);
-
-        // Assuming makeRequest returns a promise that resolves to the response
-        makeRequest('users/validate', 'POST', { token: storedJwtToken })
-            .then(response => response.json())
-            .then(data => {
-                if (data.valid) {
-                    // Token is valid, you can update your state or take other actions
-                    console.log('Token is valid');
-                    setUser(data)
-                    setLoggedIn(true)
-                } else {
-                    // Token is not valid
-                    console.log('Token is not valid');
-                }
-            })
-            .catch(error => {
-                // Handle error if the request fails
-                console.error('Error:', error);
-            });
-    }, []);
-
-    useEffect(() => {
         makeRequest('voting/results', 'GET')
             .then(response => response.json())
             .then(data => {
                 setVoteData(data.candidates)
 
-                const groups = Array.from(new Set(data.candidates.map(item => item.group)));
-                setGroups(groups)
+                setGroups(data.groups)
             })
     }, []);
+
+    useEffect(() => {
+        console.log(voteData)
+    }, [voteData]);
 
     function handleVoteBoxClick(group, candidates) {
         setShowOverlay(true)
@@ -78,10 +51,10 @@ export default function Home() {
             <div className="flex justify-center overflow-y-scroll overflow-x-hidden">
                 <div className="max-h-screen grid gap-5 md:grid-cols-2 lg:grid-cols-4 p-5 mb-80">
                     {groups.map((group, index) => {
-                        const candidatesForGroup = voteData.filter(candidate => candidate.group === group);
+                        const candidatesForGroup = voteData.filter(candidate => candidate.group === group.name);
 
                         return (
-                            <VoteBox onClick={() => handleVoteBoxClick(group, candidatesForGroup)} key={index} group={group} candidata={candidatesForGroup} />
+                            <VoteBox onClick={() => handleVoteBoxClick(group.name, candidatesForGroup)} key={index} group={group.name} candidata={candidatesForGroup} />
                         );
                 })}
 

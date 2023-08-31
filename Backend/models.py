@@ -1,22 +1,33 @@
 from app import db
+from random import randint
 
-class user_model(db.Model):
-    __tablename__ = 'Users'
+key_id = randint(1000, 100000)
+
+class group_model(db.Model):
+    __tablename__ = 'Groups'
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String())
-    hasVoted = db.Column(db.Boolean())
-    password = db.Column(db.LargeBinary())
+    name = db.Column(db.String())
 
-    def __init__(self, email, hasVoted, password):
-        self.email = email
-        self.hasVoted = hasVoted
-        self.password = password
+    def __init__(self, name):
+        self.name = name
 
     def __repr__(self):
-        return f"<User {self.email}>"
+        return f"<User {self.name}>"
 
 
+class key_model(db.Model):
+    __tablename__ = 'Keys'
+
+    id = db.Column(db.Integer, unique=True,  primary_key=True)
+    group = db.Column(db.Integer)
+
+    def __init__(self, group, id):
+        self.group = group
+        self.id = id
+
+    def __repr__(self):
+        return f"<User {self.group}>"
 
 
 class candidate_model(db.Model):
@@ -33,3 +44,6 @@ class candidate_model(db.Model):
 
     def __repr__(self):
         return f"<User {self.name}>"
+
+
+

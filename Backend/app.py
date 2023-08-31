@@ -19,6 +19,10 @@ from voting_routes import voting_blueprint
 
 app.register_blueprint(voting_blueprint)
 
+from key_generator import generator_blueprint
+
+app.register_blueprint(generator_blueprint)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

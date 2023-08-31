@@ -42,7 +42,7 @@ const BarChart = ({vote1, vote2, can1, can2}) => {
         }
     };
     return (
-        <div>
+        <div className={"py-5"}>
             <Bar data={data} options={options} />
         </div>
     );
