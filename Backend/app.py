@@ -11,10 +11,6 @@ migrate = Migrate(app, db)
 cors = CORS(app)
 app.config['SECRET_KEY'] = os.urandom(24)
 
-from user_routes import user_blueprint
-
-app.register_blueprint(user_blueprint)
-
 from voting_routes import voting_blueprint
 
 app.register_blueprint(voting_blueprint)
