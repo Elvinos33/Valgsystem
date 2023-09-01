@@ -24,9 +24,6 @@ export default function Home() {
             })
     }, []);
 
-    useEffect(() => {
-        console.log(voteData)
-    }, [voteData]);
 
     function handleVoteBoxClick(group, candidates) {
         setShowOverlay(true)
