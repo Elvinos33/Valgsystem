@@ -29,6 +29,7 @@ export default function VotingOverlay({setShowOverlay, group, candidata}) {
             alert("Du har stemt!")
             reset()
             setSelectedCandidate('')
+            setShowOverlay(false)
         } else if (responseData.access) {
             alert("Du har ikke tilgang til dette valget.")
         } else {
